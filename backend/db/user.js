@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { Balance } = require('./balance');
 
 main().catch(err => console.log(err));
 
@@ -39,29 +40,16 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true,
         maxLength: 10
-    }
-  }
+    } }
+   
 );
+
+
 
 
 
 const User = mongoose.model('User', userSchema);
 
-// async function createUser() {
-//     try {
-//         const user = await User.create({
-//             username: 'anand',
-//             password: 'yourpassword',  // Replace with a valid password
-//             firstName: 'First',
-//             lastName: 'Last',
-//             mobile: '1234567890'  // Replace with a valid mobile number
-//         });
-//         console.log('User created:', user);
-//     } catch (error) {
-//         console.error('Error creating user:', error.message);
-//     }
-// }
 
-// createUser();
 
 module.exports = {User}
