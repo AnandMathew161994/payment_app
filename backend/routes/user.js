@@ -49,7 +49,7 @@ userRouter.post("/signup",userExists, async (req,res)=>{
 
                 
             } catch(err) {
-                res.send(err.errorResponse.errmsg)
+                res.send(err)
             }
     }
  
