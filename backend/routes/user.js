@@ -59,19 +59,25 @@ userRouter.post("/signup",userExists, async (req,res)=>{
 
 
 userRouter.get("/signin", async (req,res)=>{
-    const userValid = usersigninZod.safeParse(req.body)
+    console.log(req.query)
+    const userValid = usersigninZod.safeParse(req.query.userdata)
      if (!userValid.success){
-         res.send(userValid.error.issues[0].message);
+        res.send(userValid.error)
+     
+   
          
      }
      else {
             
              try {
-                let {username , password} = req.body
+                let {username , password} = req.query.userdata
+                console.log(username , password)
                 const user = await User.findOne({username : username , password : password})
                 if (user){
                     const token = jwt.sign({userId : user._id},JWT_SECRET)
-                    res.status(200).send("signed in successfully")
+                    const user_bal = await Balance.findOne({userId : user._id})
+                    res.status(200).json({firstname : user.firstName, lastname : user.lastName,balance : user_bal.balance, token : token})
+                
                 }
  
                  
